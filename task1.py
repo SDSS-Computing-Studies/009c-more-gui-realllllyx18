@@ -1,39 +1,64 @@
+#!python3
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
+import math
 
 window = tk.Tk()
 window.title("tk")
+window.geometry("500x400")
 
 eoutput = StringVar()
 eoutput.set("Here goes thr output")
 
 def function():
+    a = aentry.get()
+    b = bentry.get()
+    c = centry.get()
+    h = hentry.get()
     a = float(a)
     b = float(b)
     c = float(c)
     h = float(h)
-    s = float(s)
-    A = float(A)
-    if a > 0 and b > 0 and c > 0:
-        s = (a+b+c)/2
-        A = math.sqrt(s(s-a)*(s-b)*(s-c))
+   if h != "":
+        if b != "":
+            area = b*h/2
+            A = str(area)
+            output.set("The area of the triangle is: " + A)
+        elif a != "" and c != "":
+            b = math.sqrt(a**2-h**2) + math.sqrt(c**2-h**2)
+            area = b*h/2
+            A = str(area)
+            output.set("The area of the triangle is: " + A)
+        else:
+            output.set("Cannot be calculated.\nPlease try again.")
     else:
-        A = b*h/2
+        if a != "" and b != "" and c != "":
+            s = (a+b+c)/2
+            area = math.sqrt(s*(s-a)*(s-b)*(s-c))
+            A = str(area)
+            output.set("The area of the triangle is: " + A)
+        else:
+            output.set("Cannot be calculated.\nPlease try again.")
 
-button1 = tk.Button(window, text="Calculate")
-entry1 = tk.Entry(window, width=15)
+button1 = tk.Button(window, text="Calculate", command=calculate)
 triangle = PhotoImage(file="triangle.png")
-entry2 = tk.Entry(window, width=15)
-entry3 = tk.Entry(window, width=15)
-label1 = tk.Label(window, text="Enter in as much information about the\n triangle shown and I will calcualte the area")
-label2 = tk.Label(window, image=triangle)
+label1 = tk.Label(window, image=trianglepic)
+aentry = tk.Entry(window, width=5)
+bentry = tk.Entry(window, width=5)
+centry = tk.Entry(window, width=5)
+hentry = tk.Entry(window, width=5)
 
-label2.grid(row=1, column=1, rowspan=1)
-button1.grid(row=5, column=1)
-entry1.grid(row=1, column=0)
-entry2.grid(row=2, column=1)
-entry3.grid(row=3, column=1)
-label1.grid(row=4, column=1)
+output = StringVar()
+instruction = "Enter in as much information about the\n triangle shown and I will calcualte the area"
+output.set(instruction)
+entry1 = tk.Entry(win, textvariable=output, width=len(instruction))
+
+label1.place(x=0,y=0)
+entry1.place(x=0,y=300)
+button.place(x=300,y=350)
+aentry.place(x=100,y=150)
+hentry.place(x=300,y=150)
+centry.place(x=400,y=150)
+bentry.place(x=300,y=250)
 
 window.mainloop()
